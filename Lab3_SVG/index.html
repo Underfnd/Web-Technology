@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drag Square SVG</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>Drag Square SVG</h1>
+    <div>Click and drag the pink square with your mouse</div>
+    
+    <svg width="500px" height="500px" class="area" id="svgContainer">
+        <!-- Фоновая сетка для ориентира -->
+        <defs>
+            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+        
+        <!-- Перемещаемый квадрат -->
+        <rect id="draggableSquare" x="25" y="25" width="50" height="50" fill="#df169a" 
+              stroke="#333" stroke-width="2" 
+              style="cursor: move;"/>
+        
+        <!-- Центральная точка для точного позиционирования -->
+        <circle id="centerDot" cx="50" cy="50" r="3" fill="white" stroke="#333" stroke-width="1"/>
+        
+        <!-- Текст с координатами -->
+        <text id="coordText" x="60" y="20" font-size="12" fill="#333">x: 25, y: 25</text>
+    </svg>
+    
+    <div class="info">
+        <p>Current position: <span id="positionInfo">x: 25, y: 25</span></p>
+        <p>Hold down mouse button and drag the square</p>
+    </div>
+    
+    <!-- Кнопки управления -->
+    <div style="margin-top: 20px;">
+        <button onclick="resetPosition()">Reset Position</button>
+        <button onclick="centerSquare()">Center Square</button>
+        <label style="margin-left: 20px;">
+            <input type="checkbox" id="snapToGrid" checked> Snap to grid (50px)
+        </label>
+    </div>
+
+    
+</body>
+</html>

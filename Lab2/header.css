@@ -1,0 +1,160 @@
+/* Основные стили для header */
+header {
+    padding: 20px 0;
+    background: #fff;
+    font-family: var(--font-primary);
+}
+
+#header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Лого */
+#logo-wrapper {
+    margin: 0 40px 0 0;
+}
+
+#logo-wrapper img {
+    display: block;
+    height: 40px;
+    width: auto;
+}
+
+/* Бургер */
+#burger-button {
+    display: block;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+#burger-button img {
+    display: flex;
+    width: 24px;
+    height: 24px;
+}
+
+/* Навигация */
+#main-nav {
+    margin-left: 40px;
+    margin-right: auto;
+}
+
+#nav-list {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#nav-list a {
+    text-decoration: none;
+    color: var(--mainText);
+    font-size: var(--medium-size);
+    transition: color 0.3s;
+    font-weight: var(--fw-regular);
+}
+
+#nav-list a:hover {
+    color: var(--accent);
+}
+
+#current-nav-el {
+    color: var(--dark40);
+    font-weight: var(--fw-bold);
+}
+
+#current-nav-el:hover {
+    color: var(--accent);
+    font-weight: var(--fw-bold);
+}
+
+#how-to-buy {
+    color: var(--waterColor);
+}
+
+#how-to-buy:hover {
+    color: var(--accent);
+}
+/* Действия в header */
+#header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+/* Кнопка входа */
+#login-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+#login-btn img {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+/* контакт */
+#contacts-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+#phone-link {
+    font-size: var(--medium-size);
+    font-weight: var(--fw-bold);
+    color: var(--mainText);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#callback-btn {
+    background: none;
+    border: none;
+    color: var(--waterColor);
+    font-size: var(--small-size);
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    font-weight: var(--fw-regular);
+}
+
+#callback-btn:hover {
+    color: var(--accent);
+}
+
+/* Кнопка Выбрать квартиру */
+#select-apartment-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--mainText);
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: var(--fw-bold);
+    font-size: var(--small-size);
+    white-space: nowrap;
+    transition: background 0.3s;
+    font-family: var(--font-primary);
+}
+
+#select-apartment-btn:hover {
+    background: var(--dark90);
+}
+
+

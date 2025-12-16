@@ -1,0 +1,41 @@
+:root {
+    --mainText: #40454f;
+	--dark90: #535861;
+	--dark80: #646870;
+	--dark60: #8c8f95;
+	--dark40: #b3b5b9;
+	--dark25: #cfd0d3;
+	--white: #ffffff;
+	--accent: #ef9166;
+	--waterColor: #066381;
+	--fasadColor: #fbf0ea;
+	--greyBlue: #dfebef;
+	--dialogBackdrop: #40454fb0;
+
+	--font-primary: 'Circe', sans-serif;
+	--font-accent: 'FiveYearsLater', sans-serif;
+
+	--fw-thin: 100;
+	--fw-light: 300;
+	--fw-regular: 400;
+	--fw-bold: 700;
+	--fw-extra-bold: 800;
+
+	--extra-small-size: 10px;
+	--small-size: 14px;
+	--medium-size: 18px;
+	--large-size: 32px;
+	--extra-large-size: 44px;
+	--extra-extra-large-size: 64px;
+	--triple-extra-large-size: 80px;
+}
+
+* {
+	color: var(--mainText);
+}
+
+#btn-icon {
+    width: 22px;
+    height: 22px;
+}
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контактная форма</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Свяжитесь с нами</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">ФИО *</label>
+                <input type="text" id="name" name="name" required placeholder="Введите ваше полное имя">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="example@mail.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (999) 999-99-99">
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Тема обращения</label>
+                <select id="subject" name="subject">
+                    <option value="">Выберите тему</option>
+                    <option value="support">Техническая поддержка</option>
+                    <option value="sales">Вопрос по продажам</option>
+                    <option value="partnership">Сотрудничество</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Сообщение *</label>
+                <textarea id="message" name="message" required placeholder="Опишите ваш вопрос подробно..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreement" name="agreement" required>
+                    <label for="agreement">Я согласен на обработку персональных данных</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Отправить сообщение</button>
+        </form>
+        
+        <div class="form-footer">
+            <p>Или напишите нам на <a href="mailto:info@example.com">info@example.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Форма отправлена! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

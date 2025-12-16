@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Студия цифрового искусства</title>
+    <!-- Подключаем шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #00ff88;
+            color: #0a0a0a;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        /* СЕТКА */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-two-col {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+            .grid-three-col {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* СЕКЦИЯ 1: ГЕРОЙ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, rgba(0, 255, 136, 0) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            opacity: 0.9;
+        }
+
+        .accent {
+            color: #00ff88;
+        }
+
+        /* СЕКЦИЯ 2: УСЛУГИ */
+        .services {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: #111;
+            padding: 2.5rem;
+            border-radius: 4px;
+            border-left: 4px solid #00ff88;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* СЕКЦИЯ 3: CTA */
+        .cta {
+            padding: 6rem 0;
+            text-align: center;
+            background: #111;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Секция 1: Герой -->
+    <section class="hero">
+        <div class="container">
+            <div class="grid grid-two-col">
+                <div>
+                    <h1>Создаем <span class="accent">цифровые миры</span>, которые работают на вас</h1>
+                    <p>Nexus — это студия, где встречаются стратегия, дизайн и технологии. Мы превращаем сложные идеи в элегантные цифровые продукты.</p>
+                    <a href="#contact" class="btn">Обсудить проект</a>
+                </div>
+                <!-- В этом месте могла бы быть стилизованная иллюстрация или изображение -->
+                <div>
+                    <!-- Placeholder для визуала -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 2: Услуги -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Наши <span class="accent">услуги</span></h2>
+            <div class="grid grid-three-col">
+                <div class="service-card">
+                    <h3>Веб-дизайн</h3>
+                    <p>Создаем интуитивно понятные и визуально эффектные интерфейсы, которые решают бизнес-задачи и привлекают клиентов.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Брендинг</h3>
+                    <p>Разрабатываем уникальные айдентику и стратегию бренда, которые выделяют вас на рынке.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Разработка</h3>
+                    <p>Воплощаем дизайн в жизнь с помощью чистого кода и современных технологий. От лендингов до сложных веб-приложений.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 3: Призыв к действию -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Готовы начать?</h2>
+            <p>Свяжитесь с нами для бесплатной консультации. Обсудим ваш проект и найдем лучшее решение.</p>
+            <a href="mailto:hello@nexus.ru" class="btn">Написать нам</a>
+        </div>
+    </section>
+</body>
+</html>

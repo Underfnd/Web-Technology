@@ -1,0 +1,249 @@
+#callDialog {
+    background: transparent;
+    border: none;
+    display: none;
+    font-family: var(--font-primary);
+    height: 100vh;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#callDialog[open] {
+    display: block;
+}
+
+#callDialog::backdrop {
+    background-color: var(--dialogBackdrop);
+}
+
+#formBlock, #successBlock {
+    background: var(--white);
+    border-radius: 32px 0 0 32px;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 40px 28px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 400px;
+}
+
+#callDialog::before {
+    background-color: var(--dialogBackdrop);
+    content: '';
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 400px);
+    z-index: -1;
+}
+
+#closeDialogBtn, #closeSuccessBtn {
+    align-items: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    height: 48px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: 500px;
+    top: 32px;
+    transition: background 0.3s;
+    width: 48px;
+    z-index: 1001;
+}
+
+#closeDialogBtn:hover, #closeSuccessBtn:hover {
+    background: var(--dark90);
+}
+
+#closeDialogBtn svg, #closeSuccessBtn svg {
+    height: 19px;
+    width: 19px;
+}
+
+#custom-checkbox svg {
+    display: none;
+    height: 11px;
+    width: 15px;
+}
+
+#coolButton svg {
+    height: 22.6px;
+    transition: transform 0.3s linear;
+    width: 22.6px;
+}
+
+#formBlock h2, #successBlock h2 {
+    color: var(--mainText);
+    font-family: var(--font-accent);
+    font-size: 36px;
+    font-weight: var(--fw-regular);
+    line-height: 100%;
+    margin: 0 0 24px 0;
+}
+
+#formBlock h2 mark, #successBlock h2 mark {
+    background: none;
+    color: var(--accent);
+}
+
+#formBlock p, #successBlock p {
+    color: var(--dark80);
+    font-size: 18px;
+    font-weight: var(--fw-light);
+    line-height: 1.4;
+    margin: 0 0 32px 0;
+}
+
+#callForm {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+    overflow: hidden;
+}
+
+#callForm label {
+    display: block;
+    margin-bottom: 0;
+}
+
+#callForm input {
+    background-color: var(--fasadColor);
+    border: none;
+    border-radius: 12px;
+    box-sizing: border-box;
+    color: var(--dark60);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: var(--fw-regular);
+    padding: 14px 24px;
+    width: 100%;
+}
+
+#callForm input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+#callForm input::placeholder {
+    color: var(--dark60);
+}
+
+#checkLine {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    margin-top: 8px;
+}
+
+#checkLine input {
+    display: none;
+}
+
+#custom-checkbox {
+    align-items: center;
+    border: 2px solid var(--dark80);
+    border-radius: 5px;
+    display: flex;
+    flex-shrink: 0;
+    height: 18px;
+    justify-content: center;
+    margin-right: 11px;
+    width: 18px;
+}
+
+#checkLine p {
+    color: var(--dark80);
+    font-size: 14px;
+    font-weight: var(--fw-light);
+    line-height: 1.4;
+    margin: 0;
+}
+
+#checkLine p mark {
+    background: none;
+    color: var(--accent);
+}
+
+#checkLine:hover #custom-checkbox {
+    border-color: var(--accent);
+}
+
+#checkLine:hover p {
+    opacity: 0.8;
+}
+
+input[type="checkbox"]:checked + #custom-checkbox {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked + #custom-checkbox svg {
+    display: block;
+}
+
+#callForm #coolButton {
+    align-items: center;
+    background-color: var(--accent);
+    border: none;
+    border-radius: 99px;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    font-weight: var(--fw-regular);
+    gap: 16px;
+    justify-content: center;
+    padding: 12px 40px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+#callForm #coolButton:hover {
+    background-color: var(--dark90);
+}
+
+#callForm #coolButton:hover svg {
+    transform: rotate(45deg);
+}
+
+#successBlock {
+    justify-content: center;
+}
+
+#successBlock p {
+    margin-bottom: 0;
+}
+
+#callDialog[open] #formBlock,
+#callDialog[open] #successBlock {
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

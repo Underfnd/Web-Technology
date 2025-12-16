@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background-color: #0a0a0a;
+    color: #f0f0f0;
+    overflow-x: hidden;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/* Шапка */
+header {
+    padding: 30px 0;
+    position: relative;
+    z-index: 10;
+}
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #c00;
+    transform: skewX(-10deg);
+}
+nav ul {
+    display: flex;
+    list-style: none;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    position: relative;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #c00;
+    transition: width 0.3s ease;
+}
+nav a:hover::after {
+    width: 100%;
+}
+/* Герой блок с наложениями */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.hero-bg {
+    position: absolute;
+    top: 0;
+    right: -10%;
+    width: 70%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1627527718485-89c6fae30c57?ixlib=rb-4.0.3') no-repeat center center/cover;
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 50%;
+}
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+.hero h1 .subtitle {
+    display: block;
+    font-size: 1.5rem;
+    color: #c00;
+    margin-top: -10px;
+}
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 500px;
+    line-height: 1.7;
+}
+.cta-button {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    padding: 12px 35px;
+    border: 2px solid #c00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.cta-button:hover {
+    background: #c00;
+    transform: translateY(-5px);
+}
+/* Блок особенностей с асимметрией */
+.features {
+    padding: 150px 0;
+}
+.feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 120px;
+}
+.feature:nth-child(even) .feature-image {
+    order: 2;
+}
+.feature:nth-child(even) .feature-text {
+    order: 1;
+    text-align: right;
+}
+.feature-image {
+    position: relative;
+}
+.feature-image::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 110%;
+    top: -5%;
+    left: 10%;
+    background: #c00;
+    z-index: -1;
+    transform: skewY(-5deg);
+}
+.feature-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #c00;
+}
+.feature-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+/* Пауза - блок с цитатой */
+.pause {
+    padding: 100px 0;
+    text-align: center;
+    background: #111;
+    margin: 80px 0;
+    clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+}
+.pause blockquote {
+    font-size: 2rem;
+    font-style: italic;
+    max-width: 800px;
+    margin: 0 auto;
+}
+/* Финальный CTA */
+.final-cta {
+    text-align: center;
+    padding: 100px 0 150px;
+}
+.final-cta h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+.final-cta .cta-button {
+    font-size: 1.2rem;
+    padding: 15px 50px;
+}

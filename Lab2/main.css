@@ -1,0 +1,145 @@
+main {
+    font-family: var(--font-primary);
+    color: var(--mainText);
+    margin-left: 20px;
+}
+
+#breadcrumbs {
+    margin-top: 50px;
+}
+
+#breadcrumbs p {
+    font-size: var(--small-size);
+    color: var(--dark90);
+    margin-bottom: 4px;
+}
+
+#breadcrumbs p span {
+    color: var(--dark60);
+}
+
+#breadcrumbs h1 {
+    margin-top: 10px;
+    font-size: var(--extra-extra-large-size);
+    font-family: var(--font-accent);
+    font-weight: var(--fw-regular);
+}
+
+#about {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 96px;
+}
+
+#about-content {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 2px; */
+}
+
+#about-content h2 {
+    font-family: var(--font-accent);
+    font-size: var(--extra-large-size);
+    line-height: 1;
+    font-weight: var(--fw-regular);
+    margin-bottom: 15px;
+}
+
+#highlight {
+    color: var(--accent);
+}
+
+#about-content p:first-of-type {
+    font-size: var(--medium-size);
+    color: var(--dark80);
+}
+
+#about-content p:last-of-type {
+    font-size: var(--medium-size);
+    color: var(--dark80);
+}
+
+#buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#primary-btn {
+    background: var(--accent);
+    color: var(--white);
+    padding: 10px 24px;
+    border-radius: 99px;
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    text-decoration: none;
+
+}
+
+#secondary-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--small-size);
+    color: var(--mainText);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+#about {
+    align-items: flex-start;
+}
+
+#about-image {
+    width: 600px;            
+    height: 420px;
+    margin-left: auto;       
+    margin-top: 30px;       
+}
+
+#about-image img {
+    width: 100%;
+    height: 100%;
+}
+
+#about-content + #about-content {
+    margin-bottom: 32px;
+}
+
+#about-content + #about-content h2 {
+    font-family: var(--font-accent);
+    font-size: var(--large-size);
+}
+
+#stats {
+    display: flex;
+    align-items: flex-start;     
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 96px;
+}
+
+#stats h2 {
+    font-family: var(--font-accent);
+    font-size: var(--extra-large-size);
+    line-height: 1;
+    font-weight: var(--fw-regular);     
+    margin: 0;   
+}
+
+#numbers {
+    display: flex;
+    gap: 130px;
+    margin-right: 100px;     
+    margin-left: 30px;      
+}
+
+
+#big-digit {
+    margin: 0;                   
+    font-size: var(--triple-extra-large-size);
+    font-weight: var(--fw-regular);
+    font-family: var(--font-accent);
+}

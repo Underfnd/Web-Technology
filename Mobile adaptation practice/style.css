@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Golos Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: url('Fonts/Golos_Regular.woff2') format('woff2')
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Golos Regular';
+    font-style: normal;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.image-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Адаптивность */
+@media screen and (max-width: 720px) {
+    body {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    p {
+        font-size: 16px;
+        background: #e3f2fd;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    img {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    p {
+        font-size: 14px;
+    }
+}
