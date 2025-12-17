@@ -1,173 +1,333 @@
-// Элементы
+window.addEventListener('DOMContentLoaded', init);
+
 const svgContainer = document.getElementById('svgContainer');
-const draggableSquare = document.getElementById('draggableSquare');
-const centerDot = document.getElementById('centerDot');
-const coordText = document.getElementById('coordText');
-const positionInfo = document.getElementById('positionInfo');
+const svgBoxForItems = document.getElementById('svgBoxForItems');
+const draggableItemsContainer = document.getElementById('draggableItemsContainer');
 const snapToGridCheckbox = document.getElementById('snapToGrid');
 
-// Настройки
+const scaleAllItemsValue = 1.5;
 let isDragging = false;
-let currentPosition = { x: 25, y: 25 };
-const squareSize = { width: 50, height: 50 };
+let currentDraggingElement = null;
+let dragOffset = {x: 0, y: 0};
 const gridSize = 50;
-const svgBounds = {
-    minX: 0,
-    minY: 0,
-    maxX: 1000 - squareSize.width,
-    maxY: 1000 - squareSize.height
-};
+const svgBounds = {minX: 0,minY: 0,maxX: 1000,maxY: 1000};
 
-// Инициализация
+// элементы 
+const itemsList = [
+    { id: 'bath', name: 'bath.svg', width: 120, height: 120 },
+    { id: 'bed', name: 'bed.svg', width: 120, height: 120 },
+    { id: 'cabinet', name: 'cabinet.svg', width: 80, height: 80 },
+    { id: 'carpet', name: 'carpet.svg', width: 100, height: 100 },
+    { id: 'sink', name: 'sink.svg', width: 80, height: 80 },
+    { id: 'sofa', name: 'sofa.svg', width: 120, height: 120 },
+    { id: 'sofa2', name: 'sofa2.svg', width: 120, height: 120 },
+    { id: 'stove', name: 'stove.svg', width: 80, height: 80 },
+    { id: 'table_with_chairs', name: 'table_with_chairs.svg', width: 100, height: 100 },
+    { id: 'table_with_pc', name: 'table_with_pc.svg', width: 120, height: 120 },
+    { id: 'table', name: 'table.svg', width: 80, height: 80 },
+    { id: 'toilet', name: 'toilet.svg', width: 50, height: 50 }
+];
+
+function scaleAllItemsInit()
+{
+    itemsList.forEach((item, index) => {
+        item.width *= scaleAllItemsValue;
+        item.height *= scaleAllItemsValue;
+    });
+}
+
+//  Инициализация
 function init() {
-    // Добавляем обработчики событий для квадрата
-    draggableSquare.addEventListener('mousedown', startDrag);
-    draggableSquare.addEventListener('touchstart', startDragTouch);
+    scaleAllItemsInit();
+    loadItemsToSidebar();
+    setupEventListeners();
+}
+
+//  Загрузка элементов на боковую панель
+function loadItemsToSidebar() {
+    const sidebarGridSize = 100;
+    const itemsPerRow = 2;
+    const margin = 35;
     
-    // Для всего документа чтобы отслеживать движение вне квадрата
+    itemsList.forEach((item, index) => {
+        const row = Math.floor(index / itemsPerRow);
+        const col = index % itemsPerRow;
+        
+        const x = margin + col * (sidebarGridSize + margin);
+        const y = margin + row * (sidebarGridSize + margin);
+        
+        const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+        image.setAttribute('href', `assets/${item.name}`);
+        image.setAttribute('x', x);
+        image.setAttribute('y', y);
+        image.setAttribute('width', sidebarGridSize);
+        image.setAttribute('height', sidebarGridSize);
+        image.setAttribute('id', 'item-icon');
+        image.setAttribute('item-id', item.id);
+        image.setAttribute('item-name', item.name);
+        image.setAttribute('original-width', item.width);
+        image.setAttribute('original-height', item.height);
+        
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', x + sidebarGridSize / 2);
+        text.setAttribute('y', y + sidebarGridSize + 15);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '12');
+        text.textContent = item.name.replace('.svg', '');
+        
+        svgBoxForItems.appendChild(image);
+        svgBoxForItems.appendChild(text);
+        
+        image.addEventListener('mousedown', startDragFromSidebar);
+        image.addEventListener('touchstart', startDragFromSidebarTouch);
+    });
+}
+
+// Настройка обработчиков событий
+function setupEventListeners() {
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', stopDrag);
     document.addEventListener('touchmove', dragTouch);
     document.addEventListener('touchend', stopDrag);
-    
-    updateVisualPosition();
 }
 
-// Начало перетаскивания (мышь)
-function startDrag(e) {
+// Начало перетаскивания с боковой панели
+function startDragFromSidebar(e) {
     e.preventDefault();
+    e.stopPropagation();
+    
+    const itemId = e.target.getAttribute('item-id');
+    const itemName = e.target.getAttribute('item-name');
+    const originalWidth = parseFloat(e.target.getAttribute('original-width'));
+    const originalHeight = parseFloat(e.target.getAttribute('original-height'));
+    
+    // новый элемент
+    const svgRect = svgContainer.getBoundingClientRect();
+    const x = e.clientX - svgRect.left - originalWidth / 2;
+    const y = e.clientY - svgRect.top - originalHeight / 2;
+    
+    createDraggableItem(itemId, itemName, originalWidth, originalHeight, x, y);
+    
+    // Начало перетаскивание элемента
+    currentDraggingElement = document.querySelector(`[instance-id="${itemId}"]`);
+    dragOffset.x = originalWidth / 2;
+    dragOffset.y = originalHeight / 2;
     isDragging = true;
-    draggableSquare.style.cursor = 'grabbing';
+    
+    currentDraggingElement.classList.add('dragging');
     svgContainer.style.cursor = 'grabbing';
 }
 
-// Начало перетаскивания (тач)
-function startDragTouch(e) {
+function startDragFromSidebarTouch(e) {
     e.preventDefault();
-    isDragging = true;
+    e.stopPropagation();
+    
     const touch = e.touches[0];
-    startDrag({ clientX: touch.clientX, clientY: touch.clientY });
+    startDragFromSidebar({ 
+        target: e.target,
+        clientX: touch.clientX, 
+        clientY: touch.clientY,
+        preventDefault: () => {},
+        stopPropagation: () => {}
+    });
 }
 
-// Перетаскивание (мышь)
-function drag(e) {
-    if (!isDragging) return;
+// Создание перетаскиваемого элемента
+function createDraggableItem(itemId, itemName, width, height, x, y) {
+    const instanceId = `${itemId}`;
     
-    // Получаем координаты курсора относительно SVG
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('id', 'draggable-item');
+    group.setAttribute('instance-id', instanceId);
+    group.setAttribute('item-id', itemId);
+    
+    // Применяем привязку к сетке если включена
+    let posX = Math.max(svgBounds.minX, Math.min(svgBounds.maxX - width, x));
+    let posY = Math.max(svgBounds.minY, Math.min(svgBounds.maxY - height, y));
+    
+    if (snapToGridCheckbox.checked) {
+        posX = Math.round(posX / gridSize) * gridSize;
+        posY = Math.round(posY / gridSize) * gridSize;
+    }
+    
+    const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    image.setAttribute('href', `assets/${itemName}`);
+    image.setAttribute('x', posX);
+    image.setAttribute('y', posY);
+    image.setAttribute('width', width);
+    image.setAttribute('height', height);
+    image.setAttribute('original-width', width);
+    image.setAttribute('original-height', height);
+    
+    group.appendChild(image);
+    draggableItemsContainer.appendChild(group);
+    
+    // Добавляем обработчики для созданного элемента
+    group.addEventListener('mousedown', startDragExisting);
+    group.addEventListener('touchstart', startDragExistingTouch);
+    
+    return group;
+}
+
+// Начало перетаскивания элемента
+function startDragExisting(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Ищем родительский группу если кликнули на image
+    currentDraggingElement = e.target.tagName === 'g' ? e.target : e.target.parentNode;
+    
+    const image = currentDraggingElement.querySelector('image');
+    
     const svgRect = svgContainer.getBoundingClientRect();
-    const x = e.clientX - svgRect.left;
-    const y = e.clientY - svgRect.top;
+    const currentX = parseFloat(image.getAttribute('x'));
+    const currentY = parseFloat(image.getAttribute('y'));
     
-    updatePosition(x, y);
+    dragOffset.x = e.clientX - svgRect.left - currentX;
+    dragOffset.y = e.clientY - svgRect.top - currentY;
+    
+    isDragging = true;
+    currentDraggingElement.classList.add('dragging');
+    svgContainer.style.cursor = 'grabbing';
 }
 
-// Перетаскивание (тач)
+function startDragExistingTouch(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const touch = e.touches[0];
+    startDragExisting({ 
+        target: e.target,
+        clientX: touch.clientX, 
+        clientY: touch.clientY,
+        preventDefault: () => {},
+        stopPropagation: () => {}
+    });
+}
+
+// Перетаскивание
+function drag(e) {
+    if (!isDragging || !currentDraggingElement) return;
+    
+    const svgRect = svgContainer.getBoundingClientRect();
+    const x = e.clientX - svgRect.left - dragOffset.x;
+    const y = e.clientY - svgRect.top - dragOffset.y;
+    
+    updateElementPosition(currentDraggingElement, x, y);
+}
+
 function dragTouch(e) {
-    if (!isDragging) return;
+    if (!isDragging || !currentDraggingElement) return;
     e.preventDefault();
     
     const touch = e.touches[0];
     drag({ clientX: touch.clientX, clientY: touch.clientY });
 }
 
-// Обновление позиции квадрата
-function updatePosition(newX, newY) {
-    // Вычитаем половину размера квадрата чтобы тянуть за центр
-    let targetX = newX - squareSize.width / 2;
-    let targetY = newY - squareSize.height / 2;
+// Обновление позиции элемента
+function updateElementPosition(element, newX, newY) {
+    const image = element.querySelector('image');
+    let width = parseFloat(image.getAttribute('width'));
+    let height = parseFloat(image.getAttribute('height'));
     
-    // Ограничиваем границами SVG
-    targetX = Math.max(svgBounds.minX, Math.min(svgBounds.maxX, targetX));
-    targetY = Math.max(svgBounds.minY, Math.min(svgBounds.maxY, targetY));
+    const transform = image.getAttribute('transform') || '';
+
+    // Ограничиваем границами с учетом поворота
+    let targetX = Math.max(svgBounds.minX, Math.min(svgBounds.maxX - width, newX));
+    let targetY = Math.max(svgBounds.minY, Math.min(svgBounds.maxY - height, newY));
     
-    // Привязка к сетке если включена
+    // Привязка к сетке
     if (snapToGridCheckbox.checked) {
         targetX = Math.round(targetX / gridSize) * gridSize;
         targetY = Math.round(targetY / gridSize) * gridSize;
-        
-        // Гарантируем что остаемся в границах
-        targetX = Math.max(svgBounds.minX, Math.min(svgBounds.maxX, targetX));
-        targetY = Math.max(svgBounds.minY, Math.min(svgBounds.maxY, targetY));
     }
     
-    // Обновляем позицию
-    currentPosition.x = targetX;
-    currentPosition.y = targetY;
+    image.setAttribute('x', targetX);
+    image.setAttribute('y', targetY);
     
-    updateVisualPosition();
-}
-
-// Обновление визуальной позиции
-function updateVisualPosition() {
-    // Обновляем атрибуты SVG
-    draggableSquare.setAttribute('x', currentPosition.x);
-    draggableSquare.setAttribute('y', currentPosition.y);
-    
-    // Обновляем центральную точку
-    centerDot.setAttribute('cx', currentPosition.x + squareSize.width / 2);
-    centerDot.setAttribute('cy', currentPosition.y + squareSize.height / 2);
-    
-    // Обновляем текст с координатами
-    const text = `x: ${currentPosition.x}, y: ${currentPosition.y}`;
-    coordText.textContent = text;
-    positionInfo.textContent = text;
-    
-    // Позиционируем текст рядом с квадратом
-    coordText.setAttribute('x', currentPosition.x + squareSize.width + 10);
-    coordText.setAttribute('y', currentPosition.y + 20);
+    // Обновляем центр вращения если есть трансформация
+    if (transform.includes('rotate(')) {
+        // с новым центром
+        const centerX = targetX + width / 2;
+        const centerY = targetY + height / 2;
+        
+        // сохранение угла старого transform
+        const match = transform.match(/rotate\((\d+)/);
+        if (match) {
+            const angle = match[1];
+            image.setAttribute('transform', `rotate(${angle} ${centerX} ${centerY})`);
+        }
+    }
 }
 
 // Остановка перетаскивания
 function stopDrag() {
     if (!isDragging) return;
     
-    isDragging = false;
-    draggableSquare.style.cursor = 'move';
-    svgContainer.style.cursor = 'grab';
+    if (currentDraggingElement) {
+        isDragging = false;
+    }
     
-    // Выводим в консоль финальную позицию
-    console.log(`Square position: x=${currentPosition.x}, y=${currentPosition.y}`);
+    isDragging = false;
+    currentDraggingElement = null;
+    svgContainer.style.cursor = 'grab';
 }
 
-// Вспомогательные функции
-function resetPosition() {
-    currentPosition = { x: 25, y: 25 };
-    updateVisualPosition();
+
+// Очистка всех свг
+function clearAllItems() {
+    while (draggableItemsContainer.firstChild) {
+        draggableItemsContainer.removeChild(draggableItemsContainer.firstChild);
+    }
 }
 
-function centerSquare() {
-    currentPosition = { 
-        x: (500 - squareSize.width) / 2, 
-        y: (500 - squareSize.height) / 2 
-    };
-    updateVisualPosition();
+function saveAll() {
+    
 }
 
-// Инициализация при загрузке
-window.addEventListener('DOMContentLoaded', init);
+function rotateItem(element) {
+    const image = element.querySelector('image');
+    
+    const x = parseFloat(image.getAttribute('x'));
+    const y = parseFloat(image.getAttribute('y'));
+    const width = parseFloat(image.getAttribute('width'));
+    const height = parseFloat(image.getAttribute('height'));
+    
+    // цнтр элемента
+    const centerX = x + width / 2;
+    const centerY = y + height / 2;
+    
+    // получаем текущий поворот
+    let currentTransform = image.getAttribute('transform') || '';
+    
+    let currentAngle = 0;
+    if (currentTransform.includes('rotate(')) {
+        // Извлекаем текущий угол из transform
+        const match = currentTransform.match(/rotate\((\d+)/);
+        currentAngle = parseInt(match[1]);
+    }
 
-// Также можно двигать стрелками (опционально)
-window.addEventListener('keydown', function(e) {
-    if (!isDragging) {
-        const moveStep = snapToGridCheckbox.checked ? gridSize : 10;
-        
-        switch(e.code) {
-            case 'ArrowUp':
-                currentPosition.y = Math.max(svgBounds.minY, currentPosition.y - moveStep);
-                break;
-            case 'ArrowDown':
-                currentPosition.y = Math.min(svgBounds.maxY, currentPosition.y + moveStep);
-                break;
-            case 'ArrowLeft':
-                currentPosition.x = Math.max(svgBounds.minX, currentPosition.x - moveStep);
-                break;
-            case 'ArrowRight':
-                currentPosition.x = Math.min(svgBounds.maxX, currentPosition.x + moveStep);
-                break;
-            default:
-                return;
+    const newAngle = (currentAngle + 45) % 360;
+    image.setAttribute('transform', `rotate(${newAngle} ${centerX} ${centerY})`);
+    
+    console.log("rotateItem()", image.getAttribute('transform'));
+}
+
+// Удаление элемента
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Delete') {
+        if (currentDraggingElement) {
+            if (currentDraggingElement.parentNode == draggableItemsContainer) {
+                draggableItemsContainer.removeChild(currentDraggingElement);
+            }
         }
-        updateVisualPosition();
-        e.preventDefault();
+    }
+    if (e.key === 'r' || e.key === 'R') {
+        if (currentDraggingElement) {
+            if (currentDraggingElement.parentNode == draggableItemsContainer) {
+                rotateItem(currentDraggingElement);
+            }
+        }
     }
 });
+

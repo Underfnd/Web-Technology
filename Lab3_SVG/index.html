@@ -1,46 +1,57 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Drag Square SVG</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
-    <style>
-
-    </style>
 </head>
 <body>
     <h1>Drag SVG</h1>
-    <div>Click and drag, you can use arrows on keyboard too</div>
-    
-    <svg width="1000px" height="1000px" class="area" id="svgContainer">
-        <!-- Фоновая сетка для ориентира -->
-        <defs>
-            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e0e0e0" stroke-width="1"/>
-            </pattern>
-        </defs>
-        <image href="assets/aparts.svg" width="100%" height="100%" 
-               preserveAspectRatio="xMidYMid meet" class="background-svg"/>
-        <rect width="100%" height="100%" fill="url(#grid)"/>
-        
-        <!-- Перемещаемый квадрат -->
-        <rect id="draggableSquare" x="25" y="25" width="50" height="50" fill="#df169a" 
-              stroke="#333" stroke-width="2" 
-              style="cursor: move;"/>
-        
-        <!-- Центральная точка для точного позиционирования -->
-        <circle id="centerDot" cx="50" cy="50" r="3" fill="white" stroke="#333" stroke-width="1"/>
-        
-        <!-- Текст с координатами -->
-        <text id="coordText" x="60" y="20" font-size="12" fill="#333">x: 25, y: 25</text>
-    </svg>
+    <p>Click and drag, hold element and use&nbsp;R on&nbsp;your keyboard to&nbsp;rotate and Delete to&nbsp;delete. If&nbsp;you can&rsquo;t see full display just zoom out, thats easy, right?</p>
 
+    <div class="container">
+        <!-- Левая панель с элементами -->
+        <div class="item-sidebar">
+            <h2>Items</h2>
+            <svg width="300px" height="1000px" id="svgBoxForItems">
+                <!-- Фоновая сетка для боковой панели -->
+                <defs>
+                    <pattern id="sidebarGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+                        <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#sidebarGrid)" opacity="0.3"/>
+                
+                <!-- Элементы будут добавлены сюда через JS -->
+            </svg>
+        </div>
+        
+        <!-- Основное поле -->
+        <svg width="1000px" height="1000px" id="svgContainer">
+            <!-- Фоновая сетка для ориентира -->
+            <defs>
+                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                </pattern>
+            </defs>
+            
+            <!-- Статичный фон планировки -->
+            <image href="assets/aparts.svg" width="100%" height="100%" 
+                   class="background-svg" id="staticBackground"/>
+            
+            <!-- Полупрозрачная сетка поверх фона -->
+            <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
+            
+            <!-- Сюда будут добавляться перетаскиваемые элементы -->
+            <g id="draggableItemsContainer"></g>
+        </svg>
+    </div>
     
     <!-- Кнопки управления -->
-    <div style="margin-top: 20px;">
-        <button onclick="resetPosition()">Reset Position</button>
-        <button onclick="centerSquare()">Center Square</button>
-        <label style="margin-left: 20px;">
+    <div class="panelButtons">
+        <button onclick="clearAllItems()">Clear All</button>
+        <label>
             <input type="checkbox" id="snapToGrid" checked> Snap to grid (50px)
         </label>
     </div>

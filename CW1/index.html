@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>404 - Page Not Found</title>
+</head>
+<body>
+    <header>
+        <div id="header-content">
+            <form>
+                <label>Find something:</label>
+                <input placeholder="Search something">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <section id="error-section">
+            <img src="assets/404github.svg" alt="404" id="error-image">
+            <p id="error-message">This page doesn't exist</p>
+            <p id="error-subtext">The page you're looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        </section>
+
+        <div id="button-container">
+            <button id="return-btn" onclick="returnToMain()">
+                Return to main page
+            </button>
+        </div>
+        
+    </main>
+
+    <footer>
+        <div id="footer-content">
+            <p>&copy; Github</p>
+            <p id="who-made">Maded by <a href="https://t.me/sDenissss" id="link-on-contacts">Underfnd</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+:root {
+    --green: #2da44e;
+    --grey: #444d56;
+    --white: #f6f8fa;
+    --semi-black: #24292e;
+    --black: #0d1117;
+    --blue: #58a6ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--white);
+    color: var(--semi-black);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: var(--semi-black);
+    padding: 16px 0;
+    color: var(--white);
+}
+
+#header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+form label {
+    font-size: 14px;
+    color: var(--white);
+}
+
+input {
+    padding: 8px 12px;
+    border: 1px solid var(--grey);
+    border-radius: 6px;
+    background-color: var(--black);
+    color: var(--white);
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+button {
+    padding: 8px 16px;
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--green);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#error-section {
+    margin-bottom: 40px;
+}
+
+#error-image {
+    width: 300px;
+    height: auto;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+#error-message {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--semi-black);
+}
+
+#error-subtext {
+    font-size: 18px;
+    color: var(--grey);
+    line-height: 1.5;
+    margin: 0 auto;
+}
+
+#button-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+#return-btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+#return-btn {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+#return-btn:hover {
+    background-color: var(--green);
+}
+
+footer {
+    background-color: var(--white);
+    border-top: 1px solid #d0d7de;
+    padding: 24px 0;
+    margin-top: auto;
+}
+
+#footer-content {
+    max-width: 1200px;
+    margin: auto auto;
+    padding: 0 20px;
+    display: flex;
+}
+
+.footer-text {
+    margin: 0;
+}
+#link-on-contacts {
+    color: var(--blue);
+    text-decoration: none;
+
+}
+
+#who-made {
+    margin-left: 40px;
+}
