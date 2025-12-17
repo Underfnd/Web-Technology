@@ -1,9 +1,9 @@
 const openDialogBtns = document.querySelectorAll('#openDialogMobile, #callback-btn');
-const closeDialogBtn = document.getElementById('closeDialogBtn');
-const dialog = document.getElementById('callDialog');
-const formBlock = document.getElementById('formBlock');
-const successBlock = document.getElementById('successBlock');
-const form = document.getElementById('callForm');
+const closeDialogBtn = document.getElementById('closeModalButton');
+const dialog = document.getElementById('callbackModal');
+const formBlock = document.getElementById('callbackFormSection');
+const successBlock = document.getElementById('successMessageSection');
+const form = document.getElementById('callbackForm');
 
 openDialogBtns.forEach(btn => {
     btn.addEventListener('click', () => {

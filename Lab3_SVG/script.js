@@ -14,8 +14,8 @@ const gridSize = 50;
 const svgBounds = {
     minX: 0,
     minY: 0,
-    maxX: 500 - squareSize.width,
-    maxY: 500 - squareSize.height
+    maxX: 1000 - squareSize.width,
+    maxY: 1000 - squareSize.height
 };
 
 // Инициализация

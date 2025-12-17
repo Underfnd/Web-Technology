@@ -49,9 +49,3 @@ svg.area {
 svg.area:active {
     cursor: grabbing;
 }
-
-.info {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
-}
